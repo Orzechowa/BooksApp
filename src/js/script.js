@@ -53,11 +53,12 @@
         
       
       for(let eachBookdata of dataSource.books){
+        eachBookdata.ratingBgc = thisBooksList.determineRatingBgs(eachBookdata.rating);
+        eachBookdata.ratingWidth = eachBookdata.rating * 10;
         const generatedHTML = templates.book(eachBookdata);
         const generatedDOM = utils.createDOMFromHTML(generatedHTML);
-        const ratingBgc = thisBooksList.determineRatingBgs(eachBookdata.rating);
-        const ratingWidth = eachBookdata.rating * 10;
-        thisBooksList.booksList.appendChild(generatedDOM);
+        const booksListContainer = document.querySelector(select.list.booksList);
+        booksListContainer.appendChild(generatedDOM);
       }
     
     }
@@ -101,7 +102,7 @@
     filterBooks(){
       const thisBooksList = this;
 
-      for(let eachBookdata of thisBooksList.dataSource.books){
+      for(let eachBookdata of dataSource.books){
         let shouldBeHidden = false;
         for(const filter of thisBooksList.filters){
           if(!eachBookdata.details[filter]){
@@ -138,6 +139,7 @@
   }
 
   const app = new BooksList();
+  app;
 }
  
 
